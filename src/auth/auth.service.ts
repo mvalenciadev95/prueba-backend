@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException, OnModuleInit } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  OnModuleInit,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -50,4 +54,3 @@ export class AuthService implements OnModuleInit {
     };
   }
 }
-

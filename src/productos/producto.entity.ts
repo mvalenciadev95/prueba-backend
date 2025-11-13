@@ -14,4 +14,3 @@ export class Producto {
   @Column('int')
   stock: number;
 }
-

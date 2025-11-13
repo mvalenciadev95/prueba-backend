@@ -20,11 +20,14 @@ export class ProductosService {
 
   async findAll(queryDto?: QueryProductoDto): Promise<Producto[]> {
     const { nombre, precioMin, precioMax, stockMin } = queryDto || {};
-    
-    const queryBuilder = this.productosRepository.createQueryBuilder('producto');
+
+    const queryBuilder =
+      this.productosRepository.createQueryBuilder('producto');
 
     if (nombre) {
-      queryBuilder.where('producto.nombre LIKE :nombre', { nombre: `%${nombre}%` });
+      queryBuilder.where('producto.nombre LIKE :nombre', {
+        nombre: `%${nombre}%`,
+      });
     }
 
     if (precioMin !== undefined) {
@@ -50,7 +53,10 @@ export class ProductosService {
     return producto;
   }
 
-  async update(id: string, updateProductoDto: UpdateProductoDto): Promise<Producto> {
+  async update(
+    id: string,
+    updateProductoDto: UpdateProductoDto,
+  ): Promise<Producto> {
     const producto = await this.findOne(id);
     Object.assign(producto, updateProductoDto);
     return await this.productosRepository.save(producto);
@@ -61,4 +67,3 @@ export class ProductosService {
     await this.productosRepository.remove(producto);
   }
 }
-

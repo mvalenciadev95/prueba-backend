@@ -10,10 +10,12 @@ export class AuthController {
 
   @Post('login')
   @ApiOperation({ summary: 'Iniciar sesión' })
-  @ApiResponse({ status: 200, description: 'Token de acceso generado exitosamente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Token de acceso generado exitosamente',
+  })
   @ApiResponse({ status: 401, description: 'Credenciales inválidas' })
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
 }
-

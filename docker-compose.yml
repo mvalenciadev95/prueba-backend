@@ -15,6 +15,34 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - productos-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: productos-api
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: productos_db
+      JWT_SECRET: ${JWT_SECRET:-dd7f5237a59fd2f191415a35577c4b06}
+      PORT: 3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - productos-network
+    restart: unless-stopped
+
+networks:
+  productos-network:
+    driver: bridge
 
 volumes:
   postgres_data:

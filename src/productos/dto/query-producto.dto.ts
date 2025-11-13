@@ -3,7 +3,10 @@ import { Type } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class QueryProductoDto {
-  @ApiPropertyOptional({ description: 'Filtrar por nombre', example: 'producto' })
+  @ApiPropertyOptional({
+    description: 'Filtrar por nombre',
+    example: 'producto',
+  })
   @IsOptional()
   @IsString()
   nombre?: string;

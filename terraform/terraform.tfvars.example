@@ -1,0 +1,33 @@
+# Ejemplo de archivo terraform.tfvars
+# Copia este archivo a terraform.tfvars y completa los valores
+
+aws_region = "us-east-1"
+
+# VPC y Networking
+vpc_id            = "vpc-xxxxxxxx"
+subnet_ids        = ["subnet-xxxxx1", "subnet-xxxxx2"]  # Subnets privadas para RDS
+alb_subnet_ids    = ["subnet-xxxxx3", "subnet-xxxxx4"]  # Subnets públicas para ALB
+ecs_subnet_ids    = ["subnet-xxxxx1", "subnet-xxxxx2"]  # Subnets privadas para ECS
+allowed_cidr_blocks = ["10.0.0.0/16"]                    # CIDR de tu VPC
+
+# Base de Datos
+db_instance_class = "db.t3.micro"
+db_username       = "admin"
+db_password       = "CambiarPorPasswordSeguro123!"  # ⚠️ Cambiar por un password fuerte
+environment       = "production"
+
+# ECS Configuration
+ecs_cpu           = 512   # 0.5 vCPU (256, 512, 1024, 2048, etc.)
+ecs_memory        = 1024  # 1 GB RAM (debe ser múltiplo de 256)
+ecs_desired_count = 1
+ecs_min_capacity  = 1
+ecs_max_capacity  = 4
+ecs_assign_public_ip = false  # true si no tienes NAT Gateway
+
+# Secrets
+jwt_secret = "CambiarPorJWTSecretSeguro123!"  # ⚠️ Cambiar por un secret seguro
+
+# Opciones de Seguridad
+skip_final_snapshot = false
+deletion_protection = true
+

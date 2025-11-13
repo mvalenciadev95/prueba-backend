@@ -17,4 +17,3 @@ export class Usuario {
     this.password = await hash(this.password, 10);
   }
 }
-
