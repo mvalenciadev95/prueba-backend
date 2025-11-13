@@ -2,6 +2,72 @@
 
 Hola, aca explico algunas decisiones que tomé durante el desarrollo de esta prueba.
 
+## Como Ejecutar el Proyecto
+
+### Opción 1: Con Docker Compose (Recomendado)
+
+Esta es la forma más fácil
+
+```bash
+docker-compose up -d
+```
+
+Esto levanta la base de datos PostgreSQL y la API. La API queda corriendo en `http://localhost:3000` y la documentación de Swagger en `http://localhost:3000/api/docs`.
+
+Para detener todo:
+```bash
+docker-compose down
+```
+
+### Opción 2: Sin Docker
+
+Si se prefiere correrlo sin Docker, necesitas tener Node.js 20 y PostgreSQL instalados.
+
+1. Instalar dependencias:
+```bash
+npm install
+```
+
+2. Configurar las variables de entorno. Crear un archivo `.env` en la raíz del proyecto:
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=productos_db
+JWT_SECRET=tu-secret-key-aqui
+PORT=3000
+```
+
+3. Asegurarte de que PostgreSQL esté corriendo y crear la base de datos:
+```bash
+createdb productos_db
+```
+
+4. Ejecutar la aplicación:
+```bash
+npm run start:dev
+```
+
+La API quedará disponible en `http://localhost:3000` y Swagger en `http://localhost:3000/api/docs`.
+
+### Probar la API
+
+Una vez que la app esté corriendo:
+
+1. Ir a Swagger: `http://localhost:3000/api/docs`
+2. Hacer login en el endpoint `/auth/login` con:
+   - Email: `admin@homepower.com`
+   - Password: `admin123`
+3. Copiar el `access_token` que te devuelve
+4. Hacer clic en el botón "Authorize" en Swagger y pegar el token
+5. Ya podés probar todos los endpoints de productos
+
+Si es de otra preferencia se puede usar curl o Postman, el token va en el header así:
+```
+Authorization: Bearer <tu-token-aqui>
+```
+
 ## TypeORM en lugar de Prisma
 
 Normalmente uso Prisma en mis proyectos, es el ORM con el que me siento más cómodo y el que más conozco. Pero para esta prueba quise salir de mi zona de confort y usar TypeORM. La verdad es que fue un buen reto porque TypeORM tiene un enfoque diferente, más orientado a decoradores y clases, mientras que Prisma es más declarativo con su schema.
